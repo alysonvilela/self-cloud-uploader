@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "acme",
+  "private": true,
+  "scripts": {
+    "compose:up": "docker compose up -d",
+    "compose:status": "docker compose ps",
+    "compose:down": "docker compose down",
+    "lint": "trunk check",
+    "format": "trunk fmt",
+    "dev": "tsup --watch --onSuccess \"fastify start -p 13000 -l info -Pw ./dist/app.js\"",
+    "build": "tsup",
+    "build:bun": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server src/app.ts",
+    "start": "fastify start -p 13000 -l info ./dist/app.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.892.0",
+    "@aws-sdk/s3-request-presigner": "3.892.0",
+    "@fastify/autoload": "6.3.1",
+    "@fastify/cors": "11.1.0",
+    "fastify": "5.6.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.4",
+    "@trunkio/launcher": "1.3.4",
+    "@types/node": "24.5.2",
+    "dotenv": "17.2.2",
+    "fastify-cli": "7.4.0",
+    "tsup": "8.5.0",
+    "typescript": "5.9.2",
+    "@types/bun": "latest"
+  }
+}

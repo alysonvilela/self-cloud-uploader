@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  app_backend_dev:
+    container_name: app_backend_dev
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    expose:
+      - '3000'
+    command: pnpm run dev
+    ports:
+      - '4001:3000'
+    develop:
+      watch:
+        - action: sync
+          path: ./backend
+          target: /service
+          ignore:
+            - node_modules
+    tty: true
+  app_frontend_dev:
+    container_name: app_frontend_dev
+    build: ./frontend
+    env_file:
+      - ./frontend/.env.local
+    expose:
+      - '3000'
+    command: pnpm run dev -p 3000
+    ports:
+      - '3001:3000'
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /app
+          ignore:
+            - node_modules
+    tty: true

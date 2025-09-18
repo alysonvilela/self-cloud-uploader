@@ -1,0 +1,29 @@
+services:
+  app_backend_prd:
+    container_name: app_backend_prd
+    build: ./backend
+    environment:
+      - NODE_ENV=production
+      - STORAGE_BUCKET_NAME=${STORAGE_BUCKET_NAME}
+      - STORAGE_DEFAULT_REGION=${STORAGE_DEFAULT_REGION}
+      - STORAGE_ENDPOINT_URL=${STORAGE_ENDPOINT_URL}
+      - STORAGE_ACCESS_KEY_ID=${STORAGE_ACCESS_KEY_ID}
+      - STORAGE_SECRET_ACCESS_KEY=${STORAGE_SECRET_ACCESS_KEY}
+    expose:
+      - '13000'
+    command: start
+    ports:
+      - '13000:13000'
+    tty: true
+  app_frontend_prd:
+    container_name: app_frontend_prd
+    build: ./frontend
+    environment:
+      - BUN_PUBLIC_UPLOAD_SERVICE_URL=${BUN_PUBLIC_UPLOAD_SERVICE_URL}
+    expose:
+      - '3000'
+    command: start
+    ports:
+      - '3000:3000'
+    tty: true
+  
