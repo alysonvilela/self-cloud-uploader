@@ -7,6 +7,7 @@ COPY package.json ./
 
 RUN bun install --production
 
+
 COPY . .
 
 ENV NODE_ENV=production
