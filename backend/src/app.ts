@@ -1,10 +1,7 @@
-import { config } from 'dotenv'
 import type { FastifyPluginAsync } from 'fastify'
 import autoLoad from '@fastify/autoload'
 import { join } from 'node:path'
 import cors from '@fastify/cors'
-
-config({ path: '.env.local', override: true })
 
 const app: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 
