@@ -1,13 +1,4 @@
-import type { FastifyPluginAsync } from 'fastify'
+import { Elysia } from 'elysia'
 
-export default (async (fastify) => {
-    fastify.get('/', async (_, reply) => {
-        try {
-            reply.status(200).send({})
-        } catch (error) {
-            fastify.log.error(`Error handling / request: ${JSON.stringify(error)}`)
-
-            reply.status(500).send({ error: 'Failed to process the request.' })
-        }
-    })
-}) satisfies FastifyPluginAsync
+export default new Elysia()
+    .get('/', () => ({}))

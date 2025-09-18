@@ -11,7 +11,7 @@ services:
       - STORAGE_SECRET_ACCESS_KEY=${STORAGE_SECRET_ACCESS_KEY}
     expose:
       - '13000'
-    command: start
+    command: ./server
     ports:
       - '13000:13000'
     tty: true
@@ -22,7 +22,7 @@ services:
       - BUN_PUBLIC_UPLOAD_SERVICE_URL=${BUN_PUBLIC_UPLOAD_SERVICE_URL}
     expose:
       - '3000'
-    command: start
+    command: ./server
     ports:
       - '3350:3000'
     tty: true

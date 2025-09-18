@@ -1,14 +1,15 @@
-import type { FastifyPluginAsync } from 'fastify'
+import { Elysia } from 'elysia'
 
 import { generatePresignedUrlForUpload } from '../utils/s3'
 import { isFail, tryCatch } from '../lib/never-throw'
 
-export default (async (fastify) => {
-    fastify.post('/presigned-url', async (request, reply) => {
-        const { key } = request.body as { key: string }
+export default new Elysia()
+    .post('/presigned-url', async ({ body, set }) => {
+        const { key } = body as { key: string }
 
         if (!key) {
-            return reply.status(400).send({ error: 'Key is required.' })
+            set.status = 400
+            return { error: 'Key is required.' }
         }
 
         const result = await tryCatch(async () => {
@@ -16,10 +17,10 @@ export default (async (fastify) => {
         })
 
         if (isFail(result)) {
-            fastify.log.error(`Error generating presigned URL for key "${key}": ${JSON.stringify(result.error)}`)
-            return reply.status(500).send({ error: 'Failed to generate presigned URL.' })
+            console.error(`Error generating presigned URL for key "${key}": ${JSON.stringify(result.error)}`)
+            set.status = 500
+            return { error: 'Failed to generate presigned URL.' }
         }
 
-        reply.status(200).send({ presignedUrl: result.data })
+        return { presignedUrl: result.data }
     })
-}) satisfies FastifyPluginAsync

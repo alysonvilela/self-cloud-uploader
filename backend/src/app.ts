@@ -1,21 +1,28 @@
-import type { FastifyPluginAsync } from 'fastify'
-import autoLoad from '@fastify/autoload'
-import { join } from 'node:path'
-import cors from '@fastify/cors'
+import { Elysia } from 'elysia'
+import { cors } from '@elysiajs/cors'
 
-const app: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+// Import routes manually for now
+import rootRoute from './routes/root'
+import pingRoute from './routes/ping'
+import healthzRoute from './routes/healthz'
+import presignedUrlRoute from './routes/presigned-url'
+import filesRoute from './routes/files'
 
-    fastify.register(cors, {
+const app = new Elysia()
+    .use(cors({
         origin: '*',
         methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
         allowedHeaders: ['Content-Type', 'Authorization', 'Upload-Offset', 'Upload-Length', 'Tus-Resumable', 'Upload-Metadata', 'Upload-Concat'],
-        exposedHeaders: ['Upload-Offset', 'Upload-Length', 'Tus-Resumable', 'Upload-Metadata', 'Upload-Expires', 'Location'],
+        exposeHeaders: ['Upload-Offset', 'Upload-Length', 'Tus-Resumable', 'Upload-Metadata', 'Upload-Expires', 'Location'],
         credentials: false,
-    })
-    fastify.register(autoLoad, {
-        dir: join(__dirname, 'routes'),
-        options: opts,
-    })
-}
+    }))
+    .use(rootRoute)
+    .use(pingRoute)
+    .use(healthzRoute)
+    .use(presignedUrlRoute)
+    .use(filesRoute)
+    .listen(13000)
+
+console.log(`🦊 Elysia is running at http://localhost:13000`)
 
 export default app
