@@ -24,6 +24,6 @@ services:
       - '3000'
     command: start
     ports:
-      - '3000:3000'
+      - '3350:3000'
     tty: true
   

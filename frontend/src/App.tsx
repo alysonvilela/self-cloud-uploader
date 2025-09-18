@@ -11,18 +11,7 @@ import Tus from '@uppy/tus';
 import '@uppy/core/css/style.min.css';
 import '@uppy/dashboard/css/style.min.css';
 import Uppy from "@uppy/core";
-import AwsS3, { type AwsS3UploadParameters } from '@uppy/aws-s3';
-
-// ENDPOINT TO REACH AND GET A PRESIGNED URL: 
-/*
-curl --request POST \
-  --url http://localhost:13000/presigned-url \
-  --header 'content-type: application/json' \
-  --data '{
-  "key": "file.mp4"
-}'
-
-*/
+import AwsS3, { type AwsS3UploadParameters } from '@uppy/aws-s3'
 
 console.log(import.meta.env)
 
