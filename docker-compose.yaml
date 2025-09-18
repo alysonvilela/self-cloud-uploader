@@ -22,7 +22,7 @@ services:
       - BUN_PUBLIC_UPLOAD_SERVICE_URL=${BUN_PUBLIC_UPLOAD_SERVICE_URL}
     expose:
       - '3000'
-    command: ./server
+    command: start
     ports:
       - '3350:3000'
     tty: true
