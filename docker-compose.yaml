@@ -20,6 +20,7 @@ services:
     build: ./frontend
     environment:
       - BUN_PUBLIC_UPLOAD_SERVICE_URL=${BUN_PUBLIC_UPLOAD_SERVICE_URL}
+      - DATABASE_URL=${DATABASE_URL}
     expose:
       - '3000'
     command: start
