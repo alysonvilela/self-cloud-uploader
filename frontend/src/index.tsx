@@ -1,5 +1,9 @@
 import { serve } from "bun";
 import index from "./index.html";
+import { bootstrapDatabase } from "./db/bootstrap";
+import { createFile, getFiles } from "./routes/files";
+
+await bootstrapDatabase();
 
 const server = serve({
     routes: {
@@ -18,6 +22,15 @@ const server = serve({
                     message: "Hello, world!",
                     method: "PUT",
                 });
+            },
+        },
+
+        "/api/files": {
+            async GET(req) {
+                return getFiles(req);
+            },
+            async POST(req) {
+                return createFile(req);
             },
         },
 
