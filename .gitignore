@@ -1,7 +1,17 @@
 backend/node_modules
+
 backend/dist
+
 backend/.env
 
+
+
 frontend/node_modules
+
 frontend/dist
-frontend/.env
+
+frontend/.env.coder
+
+config.bat
+
+node_modules

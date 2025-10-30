@@ -1,11 +1,9 @@
-version: '3'
-
 services:
   app_backend_dev:
     container_name: app_backend_dev
     build: ./backend
     env_file:
-      - ./backend/.env
+      - ./.env.backend
     expose:
       - '3000'
     command: pnpm run dev
@@ -23,7 +21,7 @@ services:
     container_name: app_frontend_dev
     build: ./frontend
     env_file:
-      - ./frontend/.env.local
+      - ./.env.frontend
     environment:
       - DATABASE_URL=${DATABASE_URL}
     expose:

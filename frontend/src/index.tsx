@@ -1,12 +1,10 @@
 import { serve } from "bun";
 import index from "./index.html";
 import { nanoid } from "nanoid";
-import { db, ensureSchema, ensureDemoUser } from "./db/client";
 import { files, users } from "./db/schema";
 import { and, desc, eq, ilike, sql as dsql } from "drizzle-orm";
+import { db } from "./db/drizzle";
 
-await ensureSchema();
-await ensureDemoUser();
 
 const server = serve({
     routes: {
